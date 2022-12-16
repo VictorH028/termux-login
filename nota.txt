@@ -1,0 +1,7 @@
+gotoxy() pocicion del cursor 
+
+En la fincion windonw tengo que capturar las pursacione del teclado para modificar las variables x y
+
+libreris < conio.h > 
+
+Crear una funcion (kbhit) de la libreria (conio)  que detecta la teclas precionadas 
