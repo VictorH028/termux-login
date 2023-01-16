@@ -1,72 +1,62 @@
-#include <menu.h>
+#include "lib/l_passwd.h"
+#include <cstring>
 #include <ncurses.h>
 
-#define PW_PASSWD 256
-#define NAME_LEN  256
 
-ITEM   **it;
-MENU   *me;
-WINDOW  *new_win;
+using namespace l_pass;
 
-void quit(void)
-{
-  int i;
-
-  unpost_menu(me);
-  free_menu(me);
-
-  for(i=0; i<=4; i++)
-  {
-    free_item(it[i]);
-  }
-
-  free(it);
-  delwin(new_win);
- 
-  endwin();
-}
+WINDOW *new_win;
 
 int main(){
 
-  int staty , statx , width, height;
-
+  l_passwd pass;
+  
   char name[NAME_LEN];
-  char passwd[PW_PASSWD];
+  char passwdr[PW_LEN];
   const  char *read_passwd = "passwd";
-  //initialize ncurse
-  initscr(); //Modo linea.
-  keypad(stdscr, TRUE);
-  noecho();
-  raw();
-
-  height = 15;
-  width = 30;
-  staty = (LINES - height) / 2;//Calculating for a center placement 
-  statx = (COLS - width) / 2;	//of the window
+  int i = 0; 
+  initscr();//initialize ncurse
+  clear();//Limpiar pantalla
+  keypad(stdscr, TRUE);//Opteber F1,F2..ect
+  raw();//Desactiva buffer de linea
 
   //initializer color
   start_color();
   init_pair(1, COLOR_WHITE, COLOR_BLUE);
   init_pair(2, COLOR_BLUE, COLOR_YELLOW);
 
+  pass.height = 15;
+  pass.width = 30;
+  pass.staty = (LINES - pass.height) / 2;//Calculating for a center placement 
+  pass.statx = (COLS - pass.width) / 2;	//of the window
 
-  // creating a window
-  new_win = newwin(height, width, staty, statx);
+  //create nuw window
+  new_win = create_newwin(pass.height, pass.width, pass.staty, pass.statx);
   refresh();
-  box(new_win, 0, 0);
-  // mover e imprimir en la ventana
-  mvwprintw(new_win, 0, width/2, "LOGIN");
-  mvwprintw(new_win, 2, 1, "Useriname: ");
-  //getstr(name);
-  mvwprintw(new_win, 4, 1, "Passwd: ");
+  wbkgd(new_win, COLOR_PAIR(2));
+  
+  mvwprintw(new_win,0,(pass.width/2),"LOGIN");
+  mvwprintw(new_win,2,1,"User name: ");
+  wgetstr(new_win,name);
+  mvwprintw(new_win,3,1,"Passwd: ");
+  refresh();
 
   wbkgd(new_win, COLOR_PAIR(2));
+
+  pass.passwd_log(new_win);
+  
+
+  if(strncmp(read_passwd, passwdr,strlen(read_passwd)) == 0)
+  {
+  mvwprintw(new_win,4,2,"Correct");
+  }else {
+  mvwprintw(new_win,4,2,"Wrong");
+  }
+
   //refrescando la ventana
   wrefresh(new_win);
-
-
   refresh();
-  getchar();//input 
+  getchar();//Espera entrada del usuario 
   endwin();//Stop mode line  
 
 return 0;	
