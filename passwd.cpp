@@ -2,7 +2,14 @@
 #include <cstring>
 #include <ncurses.h>
 
-
+/*... .............
+ * COLOR
+ * ..............
+ * white ----> blanco
+ * yellow ---->  
+ *
+ *
+ */
 using namespace l_pass;
 
 WINDOW *new_win;
@@ -22,8 +29,14 @@ int main(){
 
   //initializer color
   start_color();
+  use_default_colors(); //C terminal
+  //Estableciendo colores
   init_pair(1, COLOR_WHITE, COLOR_BLUE);
   init_pair(2, COLOR_BLUE, COLOR_YELLOW);
+  init_pair(3, -1, COLOR_WHITE);
+
+  //Color de fondo
+  bkgd(COLOR_PAIR(3));
 
   pass.height = 15;
   pass.width = 30;

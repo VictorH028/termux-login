@@ -5,13 +5,14 @@
 #include <vector>
 #include <string>
 #include <menu.h>
+#include <curses.h>
 #include <ncurses.h>
 
 #define PW_LEN 256
 #define NAME_LEN  256
 
 WINDOW *create_newwin(int height,int width,int starty, int startx);
-
+WINDOW *background;
 
 namespace l_pass  
 {
