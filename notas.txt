@@ -1,4 +1,0 @@
-use_default_colors: 
-le dice a la biblioteca curses que asigne los colores de primer plano/fondo predeterminados del terminal al color número -1. Entonces init_pair(x,COLOR_RED,-1) inicializará el par x como rojo en el fondo predeterminado e init_pair(x,-1,COLOR_BLUE) inicializará el par x como primer plano predeterminado en azuil
-
-

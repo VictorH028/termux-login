@@ -1,2 +1,0 @@
-convert imagen.png imagen.xpm
-gcc -Wall -Wextra -pedantic -std=c99 imagen.c -o imagen -lncursesw
