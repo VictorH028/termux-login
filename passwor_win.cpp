@@ -1,9 +1,6 @@
 #include "lib/pass_win.h"
 
 
-
-
-
 //Menu opviones 
 char const *choices[] = {
          "[+] [Crear una cuenta   ]",
@@ -27,7 +24,7 @@ int main(){
   keypad(stdscr, TRUE);
   init_pair(1, COLOR_RED, COLOR_BLACK);
   //Objeto 
-  pass_win menu_root;
+  pass_win::pass_win menu_root;
 
  
    /*Crea los elementos */

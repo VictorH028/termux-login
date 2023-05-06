@@ -50,7 +50,7 @@ WINDOW *  pass_win::pass_win::create_win_menu(int height, int width, int starty,
 
 
 
-pass_win::pass_win() { 
+pass_win::pass_win::pass_win() { 
   /* Inicializa curses */
   initscr();
   start_color();
@@ -58,6 +58,6 @@ pass_win::pass_win() {
   noecho(); 
 }
 
-pass_win::~pass_win() {
+pass_win::pass_win::~pass_win() {
   endwin(); 
 };

@@ -9,9 +9,30 @@ La autenticación sirve para comprobar que el usuario situado delante de la cons
 
 # Requisitos
 
+**Hacker's Keyboard** [Teclado de cuatro o cinco filas](https://f-droid.org/packages/org.pocketworkstation.pckeyboard/)
+
+![imagen de teclado](./img/teclado_1.jpg)
+![imagen de teclado](./img/teclado_2.jpg)
+
+
 ```sh
 apt install clang++ git -y 
 ```
+
+# Intalacion
+
+```sh
+git clone [URL]
+cd termux_login
+make
+```
+
+# Configuracion
+
+En el directorio de `$HOME` contaras con un archivo `.termux_login_conf.json` el cual es un formato de intercambio de datos  con el cual vas a poder configurar el menu.
+
+- Color 
+- Cursor 
 
 
 
@@ -19,4 +40,8 @@ apt install clang++ git -y
 
 Learning [ncurses](https://github.com/nasciiboy/NCURSES-Programming-HOWTO/blob/master/NCURSES-Programming-HOWTO-es.org)
 
+[JSON](https://en.m.wikibooks.org/wiki/JsonCpp)
 
+[La documentación de JsonCpp](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html#_intro)
+
+Cómo hacer un [Makefile](https://hernandis.me/2017/03/20/como-hacer-un-makefile.html)
