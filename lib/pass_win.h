@@ -1,48 +1,97 @@
 #ifndef PASS_WIN
 #define PASS_WIN
 
-#include <fstream>
-#include <json/json.h>
-#include <filesystem>
-////////////////////
-#include <string.h>
-#include <cstdlib>
-#include <ncurses.h>
+
 #include <menu.h>
+#include <ncurses.h>
+#include <cstdlib>
+//////////////////
+#include <json/json.h>
+#include <fstream>
+
+namespace conf{
+    class confing{
+        const char *get_confing(){
+           std::ifstream file("../config/conf.json");
+           Json::Value  obj;
+           Json::Reader reader;
+           reader.parse(file, obj);
+        };
+    };
+}
 
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[10]))
+namespace ps_w {
+    class cre_menu {
+        private:
+           int nlines{};
+           int ncols{};
+           int begin_y{};
+           int begin_x{};
+        public:
+        //Contructor   
+        cre_menu(int _nlines, int _ncols,int _begin_y, int _begin_x ) {
+            /* Inicializa curses */
+            initscr();
+            start_color();
+            cbreak();
+            noecho();
+            keypad(stdscr, TRUE);
+            init_pair(1, COLOR_RED, COLOR_BLACK);
 
-namespace conf {
-    class config{// ---> ~/.termux_login_conf.json
-        void get_config(const char *file_name){
-            Json::Value root;
-            std::ifstream file(file_name);
+            nlines  = _nlines;
+            ncols   = _ncols;
+            begin_y = _begin_y;
+            begin_x = _begin_x;
+        };
+        //Detructor
+        ~cre_menu() {
+            endwin(); 
         };
 
-    };
-}
+       ITEM ** create_element_itms(int n_choices,const char *choices[],const char *menu_icon[],int i){
+            ITEM ** my_items;
+            my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
+           for ( i = 0; i < n_choices; ++i)
+               my_items[i] = new_item(choices[i], menu_icon[i]);
+           return my_items;
+       };
+
+      void win_main_subwin(MENU *my_menu,WINDOW *my_menu_win,const char *brand_menu){
+           set_menu_win(my_menu,my_menu_win);
+           set_menu_sub(my_menu, derwin(my_menu_win, 6, 38, 3, 1));
+           //Marca del menu 
+           set_menu_mark(my_menu, brand_menu);
+      };
+     void print_in_middle(WINDOW *win, int starty, int startx, int width,char const *string, chtype color){ 
+           int length, x, y;
+           float temp;
+           
+           if(win == NULL)
+                win = stdscr;
+           getyx(win, y, x);//Coordenadas de ventana
+           if(startx != 0)
+                x = startx;
+           if(starty != 0)
+                y = starty;
+           if(width == 0)
+                width = 80;
+
+        length = strlen(string);
+        temp = (width - length) / 2;
+        x = startx + (int)temp;
+        wattron(win, color);
+        mvwprintw(win, y, x, "%s", string);
+        wattroff(win, color);
+        refresh();
+     };
+    WINDOW *create_win_menu(){
+        WINDOW * my_menu_win;
+        /*Crear la ventana que sera asociada con el menu*/
+        my_menu_win = newwin(nlines, ncols, begin_y, begin_x);
+        keypad(my_menu_win, true);
+        return my_menu_win;
+    }};}
 
 
-namespace pass_win {
-    class pass_win{
-        public:
-        // items
-            int n_choices{};
-            int i{};
-
-            int height{};
-            int width{};
-            int startx{};
-            int starty{};
-
-            ITEM **  create_element_itms(int n_choices,const char *choices[],const char *menu_icon[]);
-            WINDOW *  create_win_menu(int height, int width, int starty, int startx);
-            void win_main_subwin(MENU *my_menu,WINDOW *my_menu_win,const char *brand_menu);
-            void print_in_middle(WINDOW *win, int starty, int startx, int width, char const *string, chtype color);
-       
-            pass_win();// --> Inicializa curses 
-            ~pass_win();
-    };
-}
-#endif 
+#endif

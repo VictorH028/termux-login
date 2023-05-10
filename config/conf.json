@@ -1,3 +1,5 @@
 {
- "brand_menu" : "*"
+ "icon_menu" : ["t","y"],   
+ "brand_menu" : "👉",
+ "backgrong_color" : ""
 }
