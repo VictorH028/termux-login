@@ -2,6 +2,7 @@
 #include <ncurses.h>
 
 using namespace ps_w;
+using namespace conf;
 
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[10]))
@@ -11,7 +12,7 @@ char const *choices[] = {
          "[+] [Crear una cuenta   ]",
          "[+] [Ya estoy registrado]",
          "[+] [Salir  ]",
-         (char *)NULL,
+         //(char *)NULL,
 };
 
 char const  *menu_icon[] = {" ❤️  ", " 🧡 ", " 💔 ",};
@@ -29,7 +30,7 @@ int main(){
 
   //Objeto 
   ps_w::cre_menu menu_root(10 ,40, 4, 4);
-  
+  conf::confing config; 
 
  
    /*Crea los elementos */
@@ -44,8 +45,8 @@ int main(){
   my_menu_win = menu_root.create_win_menu();
 
 
-  /* Establece la ventana principal y la subventana */
-  menu_root.win_main_subwin(my_menu, my_menu_win,"*");
+  /* Establece la ventana principal y la subventana */ 
+  menu_root.win_main_subwin(my_menu, my_menu_win, config.get_confing("brand_menu"));
   
 
   /* Imprime un margen alrededor de la ventana pricipal e imprime el titulo */
@@ -76,7 +77,6 @@ int main(){
     }
     wrefresh(my_menu_win);
   }
-
   /* remueve el menu y libera toda la memoria tomada */
   unpost_menu(my_menu);
   free_menu(my_menu);

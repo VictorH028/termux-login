@@ -8,21 +8,31 @@
 //////////////////
 #include <json/json.h>
 #include <fstream>
+#include <string>
+#include <filesystem>
+
+#define CONF "/data/data/com.termux/files/home/termux-login/config/conf.json"
 
 namespace conf{
     class confing{
-        const char *get_confing(){
-           std::ifstream file("../config/conf.json");
+        public:
+           const char *get_confing(std::string _conf){
+           std::ifstream file(CONF);
+           if (!file.is_open()) {
+               endwin();
+               exit(EXIT_FAILURE);
+           }
            Json::Value  obj;
            Json::Reader reader;
            reader.parse(file, obj);
+           return  obj[_conf].asCString();
         };
     };
 }
 
 
 namespace ps_w {
-    class cre_menu {
+    class cre_menu : public conf::confing {//--> Herencia
         private:
            int nlines{};
            int ncols{};
