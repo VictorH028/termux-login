@@ -32,7 +32,9 @@ int main(){
   ps_w::cre_menu menu_root(10 ,40, 4, 4);
   conf::confing config; 
 
- 
+  //Color de fondo
+  wbkgd(stdscr, COLOR_PAIR(2));
+
    /*Crea los elementos */
   n_choices = ARRAY_SIZE(choices);
   my_items = menu_root.create_element_itms(n_choices, choices, menu_icon, i);

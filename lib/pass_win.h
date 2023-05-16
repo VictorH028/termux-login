@@ -48,7 +48,8 @@ namespace ps_w {
             noecho();
             keypad(stdscr, TRUE);
             init_pair(1, COLOR_RED, COLOR_BLACK);
-
+            init_pair(2, COLOR_BLACK, COLOR_WHITE);
+            
             nlines  = _nlines;
             ncols   = _ncols;
             begin_y = _begin_y;

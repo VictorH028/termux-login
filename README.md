@@ -38,10 +38,23 @@ make
 
 En el directorio de `$HOME/.local/share/termux_login/` contaras con un archivo `conf.json` para tener el  poder 💪 de configurar a su gusto.
 
+# 🎨Colores 
+Puede usar los sigientes  colores
+```
+NEGRO    0  
+RED      1  
+VERDE    2  
+AMARILLO 3  
+AZUL     4   
+MAGENTA  5
+CYAN     6
+BLANCO   7
+```
+
 ### Ejemplo del alchivo de configuración
 ```json
 {
-"icon_menu" : ["🧡", "❤️ ," 💔"],
+"icon_menu" : ["🧡", "❤️ ," 💔" ],
 "brand_menu" : "👉",
 }
 ```
